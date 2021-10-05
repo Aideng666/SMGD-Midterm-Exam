@@ -2,14 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CharacterMovement : MonoBehaviour
+public class PlayerController : MonoBehaviour
 {
     [SerializeField] CharacterController controller;
     [SerializeField] Transform camTrans;
     [SerializeField] float speed = 5f;
-    [SerializeField] float turnSmoothing = 0.1f;
 
+    float turnSmoothing = 0.1f;
     float turnSmoothVel;
+
+    int coinCount = 0;
 
     bool isWalking;
 
@@ -51,5 +53,19 @@ public class CharacterMovement : MonoBehaviour
         {
             GetComponent<Animator>().SetInteger("AnimatorState", 1);
         }
+    }
+
+    void OnTriggerEnter(Collider other)
+    {
+        if (other.tag == "Coin")
+        {
+            Destroy(other.gameObject);
+            coinCount++;
+        }
+    }
+
+    public int GetCoinCount()
+    {
+        return coinCount;
     }
 }
