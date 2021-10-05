@@ -6,10 +6,12 @@ public class PlayerController : MonoBehaviour
 {
     [SerializeField] CharacterController controller;
     [SerializeField] Transform camTrans;
-    [SerializeField] float speed = 5f;
+    [SerializeField] float walkSpeed = 10f;
+    [SerializeField] float sprintSpeed = 15f;
 
     float turnSmoothing = 0.1f;
     float turnSmoothVel;
+    float speed;
 
     int coinCount = 0;
 
@@ -26,6 +28,15 @@ public class PlayerController : MonoBehaviour
     {
         float horizontal = Input.GetAxisRaw("Horizontal");
         float vertical = Input.GetAxisRaw("Vertical");
+
+        if (Input.GetKey(KeyCode.LeftShift))
+        {
+            speed = sprintSpeed;
+        }
+        else
+        {
+            speed = walkSpeed;
+        }
 
         Vector3 direction = new Vector3(horizontal, 0f, vertical).normalized;
 
